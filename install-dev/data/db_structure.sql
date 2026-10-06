@@ -899,7 +899,7 @@ CREATE TABLE `PREFIX_extra_property_definition` (
   `default_value` varchar(255) DEFAULT NULL,
   `required` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `constraints` longtext DEFAULT NULL,
-  `display_front` tinyint(1) unsigned NOT NULL DEFAULT 1,
+  `display_front` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `associated_apis` text DEFAULT NULL,
   `associated_grids` text DEFAULT NULL,
   `associated_forms` text DEFAULT NULL,
@@ -2324,6 +2324,29 @@ CREATE TABLE `PREFIX_import_match` (
   `match` MEDIUMTEXT NOT NULL,
   `skip` int(2) NOT NULL,
   PRIMARY KEY (`id_import_match`)
+) ENGINE=ENGINE_TYPE DEFAULT CHARSET=utf8mb4 COLLATION;
+
+CREATE TABLE `PREFIX_import_job` (
+  `import_job_uuid` char(36) COLLATE utf8mb4_bin NOT NULL,
+  `entity_type` varchar(64) NOT NULL,
+  `id_shop` int(10) UNSIGNED NOT NULL,
+  `status` varchar(32) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  `skip_rows` int(10) NOT NULL DEFAULT 0,
+  `data_record_count` int(10) NOT NULL DEFAULT 0,
+  `current_phase_id` varchar(64) DEFAULT NULL,
+  `current_offset` int(10) NOT NULL DEFAULT 0,
+  `resume_cursor` varchar(255) DEFAULT NULL,
+  `skipped_row_count` int(10) NOT NULL DEFAULT 0,
+  `phase_totals` JSON NOT NULL,
+  `skipped_rows` JSON NOT NULL,
+  `messages` JSON NOT NULL,
+  `context` JSON NOT NULL,
+  `options` JSON NOT NULL,
+  `date_add` datetime NOT NULL,
+  `date_upd` datetime NOT NULL,
+  PRIMARY KEY (`import_job_uuid`),
+  KEY `date_upd` (`date_upd`)
 ) ENGINE=ENGINE_TYPE DEFAULT CHARSET=utf8mb4 COLLATION;
 
 CREATE TABLE `PREFIX_country_shop` (
